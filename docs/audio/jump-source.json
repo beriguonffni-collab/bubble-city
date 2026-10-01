@@ -1,0 +1,9 @@
+{
+  "asset": "action_jump.mp3",
+  "source": "https://setup.rbxcdn.com/version-2366ba214ec740ca-content-sounds.zip",
+  "downloaded": "2026-09-29",
+  "sha256": "0962d7ee2ad7c59ff101f9bac1419202f7bc46ff4aaebd43ef522a06db9d9a3d",
+  "bytes": 6585,
+  "playbackRate": 1,
+  "identification": "https://github.com/Roblox/Core-Scripts/blob/master/PlayerScripts/StarterCharacterScripts/Sound.server.lua"
+}

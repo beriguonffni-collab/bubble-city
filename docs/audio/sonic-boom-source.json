@@ -1,0 +1,9 @@
+{
+  "title": "Sonic Boom Massive",
+  "author": "AirMan",
+  "source": "http://soundbible.com/1648-Sonic-Boom-Massive.html",
+  "download": "https://commons.wikimedia.org/wiki/File:Sonic-boom-massive-sound.ogg",
+  "license": "CC BY 3.0",
+  "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+  "changes": "Trimmed to 3.2 seconds, high-pass filtered at 28 Hz, faded and peak limited; layered with synthesized pressure transient in-game."
+}

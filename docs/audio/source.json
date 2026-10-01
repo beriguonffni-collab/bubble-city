@@ -1,0 +1,10 @@
+{
+  "asset": "action_footsteps_plastic.mp3",
+  "source": "https://setup.rbxcdn.com/version-2366ba214ec740ca-content-sounds.zip",
+  "version": "version-2366ba214ec740ca",
+  "downloaded": "2026-09-25",
+  "sha256": "1ea59522e6b32f2915d9ea9feb0063de0c72e7d0ad686c7bb708bd84ae9858c2",
+  "bytes": 40858,
+  "identification": "https://github.com/Roblox/Core-Scripts/blob/master/PlayerScripts/StarterCharacterScripts/Sound.server.lua",
+  "playbackRate": 1.85
+}
