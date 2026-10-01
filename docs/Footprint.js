@@ -1,0 +1,6 @@
+// Edges are indexed by vertical strip: collisions against a district with thousands
+// of coastline vertices inspect only local crossing candidates, including holes.
+const indices=new WeakMap();
+function rowEdges(ring,z,pad=0){let index=indices.get(ring);if(!index){index=new Map();for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[j],b=ring[i];for(let k=Math.floor(Math.min(a[1],b[1])/32);k<=Math.floor(Math.max(a[1],b[1])/32);k++){if(!index.has(k))index.set(k,[]);index.get(k).push([a,b])}}indices.set(ring,index)}const lo=Math.floor((z-pad)/32),hi=Math.floor((z+pad)/32);if(lo===hi)return index.get(lo)||[];const result=new Set();for(let k=lo;k<=hi;k++)for(const e of index.get(k)||[])result.add(e);return result}
+export function inRing(x,z,ring){let inside=false;for(const [a,b] of rowEdges(ring,z))if((a[1]>z)!==(b[1]>z)&&x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0])inside=!inside;return inside}
+export function inFootprint(x,z,rings,pad=0){const inside=inRing(x,z,rings[0])&&!rings.slice(1).some(r=>inRing(x,z,r));if(pad<=0)return inside;if(inside)return true;for(const ring of rings)for(const [a,b] of rowEdges(ring,z,pad)){const dx=b[0]-a[0],dz=b[1]-a[1],u=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1)));if(Math.hypot(x-a[0]-u*dx,z-a[1]-u*dz)<pad)return true}return false}

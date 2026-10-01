@@ -1,0 +1,8 @@
+export const SOUND_KEY='t1-bubble-city.sound.v1';
+export const DEFAULT_SOUND={enabled:true,walkEnabled:true,jumpEnabled:true,musicEnabled:true,ambienceEnabled:true,uiEnabled:true,boostEnabled:true,boostVolume:65,musicVolume:35,ambienceVolume:50,loop:true,track:'dog-days',trackName:'Warframe · Dog Days Theme'};
+export function readSound(storage){let saved={};try{saved=JSON.parse(storage.getItem(SOUND_KEY))||{}}catch{}const p={...DEFAULT_SOUND};for(const k of Object.keys(p)){const v=saved[k];if(typeof p[k]==='boolean'&&typeof v==='boolean')p[k]=v;else if(typeof p[k]==='number'&&Number.isFinite(v)&&v>=0&&v<=100)p[k]=v;else if(k==='track'&&['dog-days','custom'].includes(v))p[k]=v;else if(k==='trackName'&&typeof v==='string'&&v.trim())p[k]=v.slice(0,120)}return p}
+export function saveSound(storage,p){storage.setItem(SOUND_KEY,JSON.stringify(p))}
+export function trackStore(){
+ let database;async function db(){if(!database)database=new Promise((resolve,reject)=>{const request=indexedDB.open('t1-bubble-city.music',1);request.onupgradeneeded=()=>request.result.createObjectStore('tracks');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)});return database}
+ return{async get(){const d=await db();return new Promise((resolve,reject)=>{const r=d.transaction('tracks').objectStore('tracks').get('custom');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})},async set(file){const d=await db();return new Promise((resolve,reject)=>{const t=d.transaction('tracks','readwrite');t.objectStore('tracks').put(file,'custom');t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error)})}};
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+ <defs>
+  <linearGradient id="rim" x1="25" y1="15" x2="215" y2="241" gradientUnits="userSpaceOnUse"><stop stop-color="#ffedbb"/><stop offset=".22" stop-color="#fffdf4"/><stop offset=".4" stop-color="#62f4f0"/><stop offset=".64" stop-color="#c898ff"/><stop offset=".8" stop-color="#ffcde4"/><stop offset="1" stop-color="#f7de9c"/></linearGradient>
+  <radialGradient id="sea" cx=".36" cy=".25" r=".85"><stop stop-color="#247994"/><stop offset=".48" stop-color="#082f56"/><stop offset="1" stop-color="#07172d"/></radialGradient>
+  <linearGradient id="towers" x1="90" y1="55" x2="150" y2="153" gradientUnits="userSpaceOnUse"><stop stop-color="#fff9e0"/><stop offset=".5" stop-color="#e5fbfb"/><stop offset="1" stop-color="#79deed"/></linearGradient>
+  <linearGradient id="depth" x2="0" y2="1"><stop stop-color="#55f3ef"/><stop offset="1" stop-color="#807ee9" stop-opacity=".1"/></linearGradient>
+  <linearGradient id="wave" x1="43" y1="143" x2="216" y2="165" gradientUnits="userSpaceOnUse"><stop stop-color="#4be9f1"/><stop offset=".47" stop-color="#f3ffff"/><stop offset="1" stop-color="#d1a9f5"/></linearGradient>
+  <radialGradient id="gloss" cx=".3" cy=".1" r="1"><stop stop-color="#eaffff" stop-opacity=".16"/><stop offset=".7" stop-color="#68f1ef" stop-opacity="0"/></radialGradient>
+ </defs>
+ <circle cx="128" cy="128" r="116" fill="#071e37"/>
+ <circle cx="128" cy="128" r="111" fill="url(#sea)" stroke="url(#rim)" stroke-width="5"/>
+ <circle cx="128" cy="128" r="101" stroke="url(#rim)" stroke-opacity=".38"/>
+ <path d="M43 101C51 57 88 31 127 29" stroke="#edfff5" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+ <path d="M211 156c-13 39-44 65-83 69" stroke="#d1a5ff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+ <!-- A crown of rounded towers above one continuous ocean. -->
+ <path d="M72 141v-38c0-11 19-11 19 0v38m13 0V81c0-12 19-12 19 0v60m13 0V62c0-13 20-13 20 0v79m13 0v-36c0-10 18-10 18 0v36" fill="url(#towers)"/>
+ <path d="M146 45V32m-32 36V54m-33 38V83m97 12V83" stroke="url(#rim)" stroke-width="2"/>
+ <path d="M69 116h25m7-20h25m7-18h26m-26 25h26m7 17h24M101 120h25" stroke="#0d6182" stroke-width="3"/>
+ <path d="M65 141q62-48 127-2" stroke="#ffe6b0" stroke-width="4" stroke-linecap="round"/>
+ <path d="M79 146v39l11 10v-43m15 4v43l16 10v-50m16-1v49l18-13v-40m17-8v39l13-12v-37" fill="url(#depth)" opacity=".75"/>
+ <path d="M44 148c28-20 48 19 79 2s56-4 90-12M58 165c31-11 38 11 66 0s47-8 70-4" stroke="url(#wave)" stroke-width="5" stroke-linecap="round"/>
+ <path d="M23 164c-27 8-22 34 30 29 47-5 108-30 148-55 46-29 56-46 34-49" stroke="url(#rim)" stroke-width="3" stroke-linecap="round"/>
+ <circle cx="128" cy="128" r="107" fill="url(#gloss)"/>
+ <path d="m206 49 4 12 12 4-12 4-4 12-4-12-12-4 12-4Z" fill="#fff1c6"/>
+ <circle cx="55" cy="74" r="5" stroke="#acf7f6" stroke-width="2"/><circle cx="186" cy="202" r="3" fill="#8cebe5"/><circle cx="63" cy="200" r="2" fill="#ffd7e9"/>
+</svg>

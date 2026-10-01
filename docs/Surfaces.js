@@ -1,0 +1,21 @@
+import * as T from './vendor/three.module.js';
+import {random} from './Assets.js';
+function texture(w,h,draw,color=true){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new T.CanvasTexture(c);t.colorSpace=color?T.SRGBColorSpace:T.NoColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;t.anisotropy=16;return t}
+export function architecturalGlass(){
+ const map=texture(2048,4096,(c,w,h)=>{const r=random(904);c.fillStyle='#287eab';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=64)for(let x=0;x<w;x+=64){const v=r();c.fillStyle=v>.97?'#f8e4b2':v>.7?'#429ac0':v>.35?'#26729e':'#1a507b';c.fillRect(x+3,y+3,58,58);c.fillStyle='#acd9e340';c.fillRect(x+5,y+5,3,53);if(v>.65){c.fillStyle='#14384e88';c.fillRect(x+7,y+18,48,3);c.fillRect(x+7,y+37,48,2)}if(v>.86){c.fillStyle='#fff0ce66';c.fillRect(x+12,y+40,12,15)}}});
+ const relief=texture(512,1024,(c,w,h)=>{c.fillStyle='#ffffff';c.fillRect(0,0,w,h);c.strokeStyle='#333333';c.lineWidth=2;for(let x=0;x<w;x+=16){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke()}for(let y=0;y<h;y+=16){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke()}},false);
+ return new T.MeshPhysicalMaterial({color:0xc6ecff,map,bumpMap:relief,bumpScale:.035,metalness:.78,roughness:.055,clearcoat:1,clearcoatRoughness:.035,envMapIntensity:1.8,iridescence:.16,iridescenceIOR:1.32});
+}
+export function deckMaterial(){const map=texture(2048,1024,(c,w,h)=>{const r=random(333);c.fillStyle='#b38b5a';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=64){c.fillStyle=y%128?'#b79a6c':'#b08b59';c.fillRect(0,y,w,62);c.fillStyle='#382f25';c.fillRect(0,y,w,3);for(let i=0;i<200;i++){c.strokeStyle=r()>.5?'#eccb9026':'#56371122';c.lineWidth=.5+r();const x=r()*w,yy=y+r()*58;c.beginPath();c.moveTo(x,yy);c.bezierCurveTo(x+20,yy+2,x+60,yy-3,x+120,yy);c.stroke()}for(let x=(y%128)*4;x<w;x+=320){c.fillStyle='#534b3c';c.fillRect(x,y,2,64);c.fillStyle='#deceaf';c.fillRect(x+5,y+6,3,3);c.fillRect(x+5,y+54,3,3)}}});return new T.MeshPhysicalMaterial({map,roughness:.46,clearcoat:.35,clearcoatRoughness:.3})}
+export function stoneMaterial(){const map=texture(1024,1024,(c,w,h)=>{const r=random(22);c.fillStyle='#558397';c.fillRect(0,0,w,h);for(let i=0;i<65000;i++){const a=r()*.12;c.fillStyle=r()>.5?'rgba(235,241,228,'+a+')':'rgba(6,39,49,'+a+')';const s=.5+r()*3;c.fillRect(r()*w,r()*h,s,s)}c.strokeStyle='#1a4c5a55';c.lineWidth=3;for(let y=0;y<h;y+=128){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke();for(let x=(y%256)*2;x<w;x+=256){c.beginPath();c.moveTo(x,y);c.lineTo(x,y+128);c.stroke()}}});return new T.MeshStandardMaterial({color:0x739dac,map,bumpMap:map,bumpScale:.16,roughness:.77,metalness:.08})}
+export function stonePaving(){const map=texture(1024,1024,(c,w,h)=>{const r=random(69);c.fillStyle='#e3dbca';c.fillRect(0,0,w,h);for(let y=0;y<h;y+=128)for(let x=0;x<w;x+=128){const v=210+Math.floor(r()*22);c.fillStyle=`rgb(${v},${v-3},${v-10})`;c.fillRect(x+2,y+2,124,124)}for(let i=0;i<18000;i++){c.fillStyle='#5e665a0a';c.fillRect(r()*w,r()*h,1,1)}});return new T.MeshPhysicalMaterial({map,color:0xffffff,bumpMap:map,bumpScale:.06,roughness:.44,metalness:.08,clearcoat:.2})}
+// World-space grain avoids stretched texels on kilometer-scale slabs and tiny railings.
+export function microSurface(material,strength=.1){const previous=material.onBeforeCompile;material.onBeforeCompile=shader=>{previous?.(shader);shader.vertexShader='varying vec3 surfacePoint;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <project_vertex>',`#include <project_vertex>
+ vec4 surfaceP=vec4(transformed,1.);
+ #ifdef USE_INSTANCING
+ surfaceP=instanceMatrix*surfaceP;
+ #endif
+ surfacePoint=(modelMatrix*surfaceP).xyz;`);shader.fragmentShader='varying vec3 surfacePoint;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
+ float grain=fract(sin(dot(floor(surfacePoint*90.),vec3(127.1,311.7,74.7)))*43758.5453);
+ float grainFilter=1.-smoothstep(.35,1.5,length(fwidth(surfacePoint*90.)));
+ roughnessFactor=clamp(roughnessFactor+(grain-.5)*grainFilter*${strength.toFixed(3)},.045,1.);`)};material.customProgramCacheKey=()=>`micro-${strength}`}
