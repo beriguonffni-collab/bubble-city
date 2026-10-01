@@ -1,0 +1,31 @@
+Pearl Diver
+
+Base humanoid rig, skinned mesh and authored animations:
+Quaternius, Universal Animation Library, Standard edition.
+License: CC0 1.0. See LICENSE.txt in this directory.
+Official source: https://quaternius.com/packs/universalanimationlibrary.html
+Download: https://quaternius.itch.io/universal-animation-library
+Retrieved September 29, 2026.
+
+Bubble City modifications:
+Pearl ceramic and teal materials, helmet/visor, illuminated collar,
+breathing equipment and chest crest; arm geometry derived from the same
+skinned body for first person. Body corkscrew combines authored pose
+animation with a custom continuous axial turn, water sheath and bubbles.
+
+The animation is inspired by the user's Warframe movement reference.
+It is not Warframe's original animation asset or an exact reproduction.
+
+The runtime file pearl-diver.avatar is a glTF binary container under a
+non-model extension so source assets are not indexed as extra worlds.
+The public edition includes the runtime assets and their CC0 license.
+
+Three.js GLTFLoader and BufferGeometryUtils: Three.js r160, MIT license.
+https://github.com/mrdoob/three.js/tree/r160/examples/jsm
+
+September 30, 2026 city traversal expansion:
+- Added Quaternius Universal Animation Library 2 Standard (CC0), downloaded from the author's official itch.io page.
+- Source: https://quaternius.itch.io/universal-animation-library-2
+- Runtime extended-motions.avatar is its GLB animation container, renamed to avoid duplicate model-library indexing.
+- 40 curated authored emotes across both libraries; custom wall-contact inverse kinematics for continuous climbing; original ClimbUp_1m used for mantling.
+- Hovering uses the authored FoldArms pose plus restrained body motion. No Warframe, Fortnite or licensed superhero animation was extracted or represented as an original game asset.
